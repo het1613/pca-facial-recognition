@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 """
-main.py — End-to-end Eigenfaces pipeline.
-
 Run this script to execute the full face-recognition workflow:
 
     python main.py
 
-All figures are saved to  output/figures/  and a summary of results
-is printed to the console.
+All figures are saved to  output/figures/  and a summary of results is printed to the console.
 """
 
 import numpy as np

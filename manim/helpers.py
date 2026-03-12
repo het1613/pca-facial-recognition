@@ -1,16 +1,8 @@
-"""
-helpers.py — Shared utilities for all Manim scenes.
-
-Provides a consistent visual language (colours, fonts, spacing) and
-reusable helper functions so that every scene looks like part of the
-same presentation deck.
-"""
-
 from manim import *
 import numpy as np
 
 # ──────────────────────────────────────────────────────────────────────────
-# Colour palette  (harmonious, accessible, slide-friendly)
+# Colour palette
 # ──────────────────────────────────────────────────────────────────────────
 PALETTE = {
     "bg":          "#1e1e2e",     # dark background

@@ -1,14 +1,3 @@
-"""
-visualization.py — Publication-quality figure generation for the Eigenfaces project.
-
-Every public function in this module:
-  1. Accepts data + optional styling overrides.
-  2. Produces a Matplotlib figure.
-  3. Saves it as a high-DPI PNG to ``FIGURES_DIR``.
-
-Figures are designed to look good in both slides and printed reports.
-"""
-
 import os
 import numpy as np
 import matplotlib

@@ -1,13 +1,6 @@
 """
 Scene 5 — ReconstructionScene
 
-Shows one target face being progressively reconstructed as:
-    x̂ ≈ μ + Σ aᵢ uᵢ
-
-Visual flow:
-  1. Display the target face.
-  2. Show the reconstruction formula.
-  3. Animate improving reconstruction as k increases.
 """
 
 import sys, os

@@ -1,14 +1,7 @@
 """
 Scene 2 — MeanCenteringScene
 
-Shows how the mean face is computed and subtracted from each training image,
-producing centered (zero-mean) face vectors.
-
-Visual flow:
-  1. Display several training face thumbnails labelled x₁ … xₙ.
-  2. Animate averaging into μ (mean face).
-  3. Show subtraction: x̃ᵢ = xᵢ − μ.
-  4. Display centered face thumbnails.
+Shows how the mean face is computed and subtracted from each training image, producing centered (zero-mean) face vectors.
 """
 
 import sys, os

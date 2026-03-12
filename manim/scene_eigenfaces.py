@@ -1,10 +1,7 @@
 """
 Scene 4 — EigenfacesScene
 
-Displays the mean face followed by the top eigenfaces appearing one-by-one,
-with labels and explanatory text.
-
-Uses real Olivetti data processed through the project's PCA pipeline.
+Displays the mean face followed by the top eigenfaces appearing one-by-one, with labels and explanatory text.
 """
 
 import sys, os

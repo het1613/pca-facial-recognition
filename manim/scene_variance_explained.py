@@ -1,8 +1,7 @@
 """
 Scene 7 — VarianceExplainedScene
 
-Animates the cumulative explained variance bar/line chart as more
-principal components are added, marking the 90 % and 95 % thresholds.
+Animates the cumulative explained variance bar/line chart as more principal components are added
 """
 
 import sys, os

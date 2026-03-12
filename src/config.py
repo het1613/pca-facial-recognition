@@ -1,10 +1,3 @@
-"""
-config.py — Shared constants and parameters for the Eigenfaces project.
-
-Centralises all tuneable knobs (component counts, plot styling, paths)
-so that every module draws from a single source of truth.
-"""
-
 import os
 
 # ---------------------------------------------------------------------------

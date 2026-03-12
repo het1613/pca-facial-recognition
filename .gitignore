@@ -7,7 +7,6 @@ build/
 
 # Manim render output
 manim/media/
-!manim/media/**/*.mp4
 media/
 
 # OS files

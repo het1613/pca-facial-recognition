@@ -2,11 +2,6 @@
 Scene 1 — FaceToVectorScene
 
 Demonstrates how a 2-D face image is flattened into a high-dimensional vector.
-
-Visual flow:
-  1. Show an 8×8 pixel grid representing a face.
-  2. Animate the grid rows unstacking into a tall column vector.
-  3. Text: "Each 64×64 face → a vector in ℝ⁴⁰⁹⁶"
 """
 
 import sys, os
