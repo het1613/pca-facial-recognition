@@ -46,11 +46,6 @@ class RecognitionScene(Scene):
         X_train_2d = X_train_c @ pca.components_[:2].T
         X_test_2d  = X_test_c  @ pca.components_[:2].T
 
-        # ── Title ──────────────────────────────────────────────────────
-        title = section_title("Face Recognition in PCA Space")
-        self.play(Write(title))
-        self.wait(0.4)
-
         # ── Build axes ─────────────────────────────────────────────────
         all_pts = np.vstack([X_train_2d, X_test_2d])
         pad = 1.5
@@ -63,7 +58,7 @@ class RecognitionScene(Scene):
             x_length=8, y_length=5,
             tips=False,
             axis_config={"color": DIM, "stroke_width": 1.2},
-        ).shift(DOWN * 0.3)
+        ).shift(UP * 0.1)
         ax_labels = axes.get_axis_labels(
             MathTex("w_1", font_size=24, color=DIM),
             MathTex("w_2", font_size=24, color=DIM),
@@ -87,13 +82,13 @@ class RecognitionScene(Scene):
             legend_items.add(entry)
 
         legend_items.arrange_in_grid(rows=2, buff=(0.3, 0.15))
-        legend_items.to_corner(DR, buff=0.3)
+        legend_items.to_corner(UR, buff=0.4)
 
         self.play(FadeIn(train_dots, lag_ratio=0.01), FadeIn(legend_items), run_time=1.0)
         self.wait(0.5)
 
         train_label = styled_text("Training faces (projected)", font_size=20, color=DIM)
-        train_label.next_to(axes, DOWN, buff=0.15)
+        train_label.next_to(axes, DOWN, buff=0.1)
         self.play(FadeIn(train_label))
         self.wait(0.5)
 
@@ -148,7 +143,7 @@ class RecognitionScene(Scene):
             f"Predicted: Subject {nn_label}  {result_symbol}",
             font_size=24, color=result_color,
         )
-        result_text.to_edge(DOWN, buff=0.4)
+        result_text.to_edge(DOWN, buff=0.35)
 
         self.play(FadeOut(test_text), FadeIn(result_text))
         self.wait(0.6)
@@ -158,7 +153,7 @@ class RecognitionScene(Scene):
             r"\hat{y} = y_{\arg\min_i \| w_{\text{test}} - w_i \|_2}",
             font_size=30, color=LAVEN,
         )
-        formula.next_to(result_text, UP, buff=0.25)
+        formula.next_to(result_text, UP, buff=0.2)
         self.play(Write(formula))
         self.wait(2.0)
         self.play(*[FadeOut(m) for m in self.mobjects])

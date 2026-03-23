@@ -34,39 +34,34 @@ class ReconstructionScene(Scene):
         original = X[face_idx]
         x_centered = X_centered[face_idx]
 
-        # ── Title ──────────────────────────────────────────────────────
-        title = section_title("Face Reconstruction with Eigenfaces")
-        self.play(Write(title))
-        self.wait(0.4)
-
         # ── Reconstruction formula ─────────────────────────────────────
         formula = MathTex(
             r"\hat{x}", r"\approx", r"\mu", r"+",
-            r"\sum_{i=1}^{k}", r"a_i", r"\mathbf{u}_i",
+            r"\sum_{i=1}^{k}", r"a_i", r"\mathbf{v}_i",
             font_size=34, color=TEXT_C,
         )
         formula.set_color_by_tex(r"\mu", PEACH)
         formula.set_color_by_tex(r"a_i", YELLOW)
-        formula.set_color_by_tex(r"\mathbf{u}_i", BLUE)
-        formula.next_to(title, DOWN, buff=0.35)
+        formula.set_color_by_tex(r"\mathbf{v}_i", BLUE)
+        formula.to_edge(UP, buff=0.5)
         self.play(Write(formula))
         self.wait(0.6)
 
         # ── Original face (left) ──────────────────────────────────────
         orig_thumb = create_face_thumbnail(original.reshape(64, 64), height=2.2)
-        orig_thumb.move_to(LEFT * 4.5 + DOWN * 1.0)
+        orig_thumb.move_to(LEFT * 4.5 + DOWN * 0.8)
         orig_label = styled_text("Original", font_size=20, color=GREEN)
-        orig_label.next_to(orig_thumb, DOWN, buff=0.2)
+        orig_label.next_to(orig_thumb, DOWN, buff=0.15)
         self.play(FadeIn(orig_thumb), FadeIn(orig_label))
 
         # ── Arrow ─────────────────────────────────────────────────────
-        arrow = Arrow(LEFT * 2.8 + DOWN * 1.0, LEFT * 1.2 + DOWN * 1.0,
+        arrow = Arrow(LEFT * 2.8 + DOWN * 0.8, LEFT * 1.2 + DOWN * 0.8,
                       color=PEACH, stroke_width=3)
         self.play(GrowArrow(arrow))
 
         # ── Progressive reconstruction (right, replacing in place) ────
         ks = [1, 5, 10, 20, 50, 100, 200, 300]
-        recon_pos = RIGHT * 1.5 + DOWN * 1.0
+        recon_pos = RIGHT * 1.5 + DOWN * 0.8
 
         prev_thumb = None
         prev_label_mob = None

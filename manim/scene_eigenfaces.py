@@ -31,25 +31,20 @@ class EigenfacesScene(Scene):
         pca.fit(X_centered)
         eigenfaces = pca.components_.reshape(-1, 64, 64)   # (100, 64, 64)
 
-        # ── Title ──────────────────────────────────────────────────────
-        title = section_title("Eigenfaces — Basis of Facial Variation")
-        self.play(Write(title))
-        self.wait(0.4)
-
         # ── Mean face ─────────────────────────────────────────────────
         mean_img = mean_face.reshape(64, 64)
         mean_thumb = create_face_thumbnail(mean_img, height=2.0)
-        mean_thumb.move_to(LEFT * 4.5 + DOWN * 0.2)
+        mean_thumb.move_to(LEFT * 4.8 + UP * 0.3)
         mean_label = MathTex(r"\mu", font_size=34, color=PEACH)
-        mean_label.next_to(mean_thumb, DOWN, buff=0.2)
+        mean_label.next_to(mean_thumb, DOWN, buff=0.15)
         mean_caption = styled_text("Mean Face", font_size=20, color=DIM)
-        mean_caption.next_to(mean_label, DOWN, buff=0.1)
+        mean_caption.next_to(mean_label, DOWN, buff=0.08)
 
         self.play(FadeIn(mean_thumb, shift=UP * 0.3), FadeIn(mean_label), FadeIn(mean_caption))
         self.wait(0.6)
 
         # ── Plus sign ─────────────────────────────────────────────────
-        plus = MathTex(r"+", font_size=40, color=TEXT_C).next_to(mean_thumb, RIGHT, buff=0.4)
+        plus = MathTex(r"+", font_size=40, color=TEXT_C).next_to(mean_thumb, RIGHT, buff=0.3)
         self.play(FadeIn(plus))
 
         # ── Eigenfaces appearing one by one (show first 8) ────────────
@@ -68,8 +63,8 @@ class EigenfacesScene(Scene):
                 ef_disp = (ef - emin) / (emax - emin)
             else:
                 ef_disp = ef * 0 + 0.5
-            thumb = create_face_thumbnail(ef_disp, height=1.3)
-            label = MathTex(f"u_{{{i+1}}}", font_size=22, color=BLUE)
+            thumb = create_face_thumbnail(ef_disp, height=1.2)
+            label = MathTex(f"v_{{{i+1}}}", font_size=22, color=BLUE)
             ef_group.add(thumb)
             ef_labels.add(label)
 
@@ -80,7 +75,7 @@ class EigenfacesScene(Scene):
             row.arrange(RIGHT, buff=0.4)
             rows.add(row)
         rows.arrange(DOWN, buff=0.5)
-        rows.next_to(plus, RIGHT, buff=0.5)
+        rows.next_to(plus, RIGHT, buff=0.3)
 
         # Position labels below each thumbnail
         for lbl, thumb in zip(ef_labels, ef_group):
@@ -105,7 +100,7 @@ class EigenfacesScene(Scene):
             font_size=22, color=GREEN,
         )
         explain_group = VGroup(explain1, explain2).arrange(DOWN, buff=0.15)
-        explain_group.to_edge(DOWN, buff=0.35)
+        explain_group.to_edge(DOWN, buff=0.3)
         self.play(FadeIn(explain_group, shift=UP * 0.2))
         self.wait(2.5)
         self.play(*[FadeOut(m) for m in self.mobjects])
