@@ -28,14 +28,9 @@ class MeanCenteringScene(Scene):
         face_indices = [0, 10, 20, 30, 40]  # one per subject
         face_imgs = [images[i] for i in face_indices]
 
-        # ── Title ──────────────────────────────────────────────────────
-        title = section_title("Mean Face & Centering")
-        self.play(Write(title))
-        self.wait(0.5)
-
         # ── Step 1: show training faces ────────────────────────────────
         step1 = styled_text("Step 1: Training faces", font_size=24, color=BLUE)
-        step1.next_to(title, DOWN, buff=0.35).to_edge(LEFT, buff=0.5)
+        step1.to_edge(UP, buff=0.5).to_edge(LEFT, buff=0.5)
         self.play(FadeIn(step1))
 
         thumbs = Group()
@@ -47,7 +42,8 @@ class MeanCenteringScene(Scene):
             labels.add(lbl)
 
         thumbs.arrange(RIGHT, buff=0.5)
-        thumbs.next_to(step1, DOWN, buff=0.4)
+        thumbs.next_to(step1, DOWN, buff=0.3)
+        thumbs.set_x(0)   # centre horizontally in frame
         for lbl, th in zip(labels, thumbs):
             lbl.next_to(th, DOWN, buff=0.15)
 
@@ -60,7 +56,7 @@ class MeanCenteringScene(Scene):
 
         # ── Step 2: compute mean ───────────────────────────────────────
         step2 = styled_text("Step 2: Compute mean face", font_size=24, color=BLUE)
-        step2.next_to(thumbs, DOWN, buff=0.5).to_edge(LEFT, buff=0.5)
+        step2.next_to(labels, DOWN, buff=0.35).to_edge(LEFT, buff=0.5)
 
         mean_formula = MathTex(
             r"\mu = \frac{1}{N} \sum_{i=1}^{N} x_i",
@@ -73,7 +69,7 @@ class MeanCenteringScene(Scene):
         # Animate: all thumbs converge to center → mean face appears
         mean_img = np.mean(np.array(face_imgs), axis=0)
         mean_thumb = create_face_thumbnail(mean_img, height=1.6)
-        mean_thumb.next_to(step2, DOWN, buff=0.4)
+        mean_thumb.next_to(step2, DOWN, buff=0.3)
 
         mean_label = MathTex(r"\mu", font_size=32, color=PEACH)
         mean_label.next_to(mean_thumb, DOWN, buff=0.15)
@@ -99,14 +95,14 @@ class MeanCenteringScene(Scene):
         )
 
         step3_title = styled_text("Step 3: Center the data", font_size=24, color=BLUE)
-        step3_title.next_to(title, DOWN, buff=0.35).to_edge(LEFT, buff=0.5)
+        step3_title.to_edge(UP, buff=0.5).to_edge(LEFT, buff=0.5)
         self.play(FadeIn(step3_title))
 
         formula = MathTex(
             r"\tilde{x}_i = x_i - \mu",
             font_size=36, color=YELLOW,
         )
-        formula.move_to(UP * 0)
+        formula.move_to(RIGHT * 1.5 + UP * 0.2)
         self.play(Write(formula))
         self.wait(0.6)
 
@@ -127,7 +123,7 @@ class MeanCenteringScene(Scene):
             centered_labels.add(cl)
 
         centered_thumbs.arrange(RIGHT, buff=0.4)
-        centered_thumbs.move_to(DOWN * 1.8)
+        centered_thumbs.move_to(DOWN * 1.6)
         for cl, ct in zip(centered_labels, centered_thumbs):
             cl.next_to(ct, DOWN, buff=0.12)
 
@@ -139,7 +135,7 @@ class MeanCenteringScene(Scene):
 
         explain = styled_text(
             "Centering removes shared structure → reveals individual variation",
-            font_size=22, color=GREEN,
+            font_size=20, color=GREEN,
         )
         explain.to_edge(DOWN, buff=0.3)
         self.play(FadeIn(explain))

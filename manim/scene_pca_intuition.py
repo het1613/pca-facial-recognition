@@ -25,11 +25,6 @@ class PCAIntuition2DScene(Scene):
     def construct(self):
         self.camera.background_color = BG
 
-        # ── Title ──────────────────────────────────────────────────────
-        title = section_title("PCA Intuition in 2-D")
-        self.play(Write(title))
-        self.wait(0.4)
-
         # ── Generate correlated 2-D data ──────────────────────────────
         np.random.seed(42)
         n = 60
@@ -55,7 +50,7 @@ class PCAIntuition2DScene(Scene):
             x_length=8, y_length=5.5,
             tips=False,
             axis_config={"color": DIM, "stroke_width": 1.5},
-        ).shift(DOWN * 0.3)
+        ).shift(UP * 0.2)
 
         ax_labels = axes.get_axis_labels(
             MathTex("x_1", font_size=26, color=DIM),
@@ -75,7 +70,7 @@ class PCAIntuition2DScene(Scene):
 
         # ── Data cloud label ──────────────────────────────────────────
         cloud_label = styled_text("Centered data cloud", font_size=22, color=DIM)
-        cloud_label.next_to(axes, DOWN, buff=0.15)
+        cloud_label.next_to(axes, DOWN, buff=0.1)
         self.play(FadeIn(cloud_label))
         self.wait(0.5)
 
@@ -155,7 +150,7 @@ class PCAIntuition2DScene(Scene):
 
         # ── Orthogonality callout ──────────────────────────────────────
         ortho = MathTex(r"\mathbf{v}_1 \perp \mathbf{v}_2", font_size=30, color=LAVEN)
-        ortho.to_edge(RIGHT, buff=0.8).shift(UP * 1)
+        ortho.to_edge(RIGHT, buff=0.5).shift(UP * 0.5)
         angle_arc = Angle(pc1_line, pc2_line, radius=0.6, color=LAVEN)
 
         self.play(Write(ortho), Create(angle_arc), run_time=0.8)
