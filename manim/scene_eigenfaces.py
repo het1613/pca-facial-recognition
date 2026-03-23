@@ -1,5 +1,5 @@
 """
-Scene 4 — EigenfacesScene
+Scene 4 - EigenfacesScene
 
 Displays the mean face followed by the top eigenfaces appearing one-by-one, with labels and explanatory text.
 """
@@ -22,7 +22,7 @@ class EigenfacesScene(Scene):
     def construct(self):
         self.camera.background_color = BG
 
-        # ── Compute eigenfaces from Olivetti data ─────────────────────
+        # -- Compute eigenfaces from Olivetti data ---------------------
         data = fetch_olivetti_faces(shuffle=False)
         X = data.data                              # (400, 4096)
         mean_face = X.mean(axis=0)
@@ -31,7 +31,7 @@ class EigenfacesScene(Scene):
         pca.fit(X_centered)
         eigenfaces = pca.components_.reshape(-1, 64, 64)   # (100, 64, 64)
 
-        # ── Mean face ─────────────────────────────────────────────────
+        # -- Mean face -------------------------------------------------
         mean_img = mean_face.reshape(64, 64)
         mean_thumb = create_face_thumbnail(mean_img, height=2.0)
         mean_thumb.move_to(LEFT * 4.8 + UP * 0.3)
@@ -43,11 +43,11 @@ class EigenfacesScene(Scene):
         self.play(FadeIn(mean_thumb, shift=UP * 0.3), FadeIn(mean_label), FadeIn(mean_caption))
         self.wait(0.6)
 
-        # ── Plus sign ─────────────────────────────────────────────────
+        # -- Plus sign -------------------------------------------------
         plus = MathTex(r"+", font_size=40, color=TEXT_C).next_to(mean_thumb, RIGHT, buff=0.3)
         self.play(FadeIn(plus))
 
-        # ── Eigenfaces appearing one by one (show first 8) ────────────
+        # -- Eigenfaces appearing one by one (show first 8) ------------
         n_show = 8
         n_cols = 4
         n_rows = 2
@@ -90,7 +90,7 @@ class EigenfacesScene(Scene):
             )
         self.wait(0.5)
 
-        # ── Explanatory text ──────────────────────────────────────────
+        # -- Explanatory text ------------------------------------------
         explain1 = styled_text(
             "Eigenfaces = eigenvectors of the covariance matrix",
             font_size=22, color=GREEN,

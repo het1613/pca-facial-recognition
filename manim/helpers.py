@@ -1,9 +1,9 @@
 from manim import *
 import numpy as np
 
-# ──────────────────────────────────────────────────────────────────────────
+# --------------------------------------------------------------------------
 # Colour palette
-# ──────────────────────────────────────────────────────────────────────────
+# --------------------------------------------------------------------------
 PALETTE = {
     "bg":          "#1e1e2e",     # dark background
     "text":        "#cdd6f4",     # light text
@@ -35,9 +35,9 @@ CLASS_COLORS = [
 ]
 
 
-# ──────────────────────────────────────────────────────────────────────────
+# --------------------------------------------------------------------------
 # Text helpers
-# ──────────────────────────────────────────────────────────────────────────
+# --------------------------------------------------------------------------
 
 def styled_text(content, font_size=32, color=TEXT_C, weight=NORMAL, **kw):
     """Create a consistently styled Text mobject."""
@@ -54,9 +54,9 @@ def math(tex_string, font_size=38, color=TEXT_C):
     return MathTex(tex_string, font_size=font_size, color=color)
 
 
-# ──────────────────────────────────────────────────────────────────────────
+# --------------------------------------------------------------------------
 # Pixel-grid face helper
-# ──────────────────────────────────────────────────────────────────────────
+# --------------------------------------------------------------------------
 
 def create_pixel_grid(image_array, grid_size=8, cell_size=0.35, stroke_width=0.5):
     """
@@ -64,9 +64,9 @@ def create_pixel_grid(image_array, grid_size=8, cell_size=0.35, stroke_width=0.5
 
     Parameters
     ----------
-    image_array : ndarray, shape (H, W)  — values in [0, 1].
-    grid_size   : int — resample to grid_size × grid_size.
-    cell_size   : float — side length of each square in scene units.
+    image_array : ndarray, shape (H, W)  - values in [0, 1].
+    grid_size   : int - resample to grid_size × grid_size.
+    cell_size   : float - side length of each square in scene units.
     stroke_width : float
 
     Returns
@@ -103,8 +103,8 @@ def create_face_thumbnail(image_array, height=2.0):
 
     Parameters
     ----------
-    image_array : ndarray, shape (H, W) — values in [0, 1].
-    height : float — desired height in scene units.
+    image_array : ndarray, shape (H, W) - values in [0, 1].
+    height : float - desired height in scene units.
     """
     uint8 = (np.clip(image_array, 0, 1) * 255).astype(np.uint8)
     # Stack to 3-channel for ImageMobject
@@ -115,9 +115,9 @@ def create_face_thumbnail(image_array, height=2.0):
     return img
 
 
-# ──────────────────────────────────────────────────────────────────────────
+# --------------------------------------------------------------------------
 # Transition helpers
-# ──────────────────────────────────────────────────────────────────────────
+# --------------------------------------------------------------------------
 
 def fade_replace(scene, old_group, new_group, run_time=0.8):
     """Fade out old mobjects and fade in new ones."""

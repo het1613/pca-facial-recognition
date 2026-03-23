@@ -1,16 +1,16 @@
 """
-Scene 8 — CovarianceEigenScene
+Scene 8 - CovarianceEigenScene
 
 Explains the mathematical connection between the covariance matrix, its
 eigenvectors (eigenfaces), and eigenvalues (explained variance).
 
 NEW: adds the Lagrangian optimisation derivation to show *why* the
-eigenvalue equation Cv = λv arises — not just that it does.
+eigenvalue equation Cv = λv arises - not just that it does.
 
 Flow:
-  Screen 1  →  Centred data matrix X̃  +  covariance  C = (1/N) X̃ᵀ X̃
-  Screen 2  →  Optimisation problem  →  Lagrangian  →  Cv = λv
-  Screen 3  →  Eigendecomposition interpretation  +  SVD connection
+  Screen 1  ->  Centred data matrix X̃  +  covariance  C = (1/N) X̃ᵀ X̃
+  Screen 2  ->  Optimisation problem  ->  Lagrangian  ->  Cv = λv
+  Screen 3  ->  Eigendecomposition interpretation  +  SVD connection
 """
 
 import sys, os
@@ -29,9 +29,9 @@ class CovarianceEigenScene(Scene):
     def construct(self):
         self.camera.background_color = BG
 
-        # ══════════════════════════════════════════════════════════════
-        # SCREEN 1 — Centred data matrix + covariance matrix
-        # ══════════════════════════════════════════════════════════════
+        # ==============================================================
+        # SCREEN 1 - Centred data matrix + covariance matrix
+        # ==============================================================
 
         step1 = styled_text("1. Centred data matrix", font_size=24, color=BLUE)
         step1.to_edge(UP, buff=0.5).to_edge(LEFT, buff=0.8)
@@ -56,7 +56,7 @@ class CovarianceEigenScene(Scene):
         self.play(Write(X_mat), FadeIn(X_dim), run_time=1.2)
         self.wait(0.8)
 
-        # ── Step 2: Covariance matrix ─────────────────────────────────
+        # -- Step 2: Covariance matrix ---------------------------------
         step2 = styled_text("2. Covariance matrix", font_size=24, color=BLUE)
         step2.next_to(X_mat, DOWN, buff=0.4).to_edge(LEFT, buff=0.8)
         self.play(FadeIn(step2))
@@ -83,9 +83,9 @@ class CovarianceEigenScene(Scene):
         )
         self.wait(0.2)
 
-        # ══════════════════════════════════════════════════════════════
-        # SCREEN 2 — The Optimisation Problem → Lagrangian → Cv = λv
-        # ══════════════════════════════════════════════════════════════
+        # ==============================================================
+        # SCREEN 2 - The Optimisation Problem -> Lagrangian -> Cv = λv
+        # ==============================================================
 
         opt_header = styled_text(
             "3. The Optimisation Problem", font_size=24, color=BLUE,
@@ -156,7 +156,7 @@ class CovarianceEigenScene(Scene):
         self.play(FadeIn(grad_label), Write(grad_eq), run_time=1.0)
         self.wait(0.5)
 
-        # Key result — Cv = λv
+        # Key result - Cv = λv
         result_eq = MathTex(
             r"\Longrightarrow",
             r"\quad C\mathbf{v}",
@@ -183,9 +183,9 @@ class CovarianceEigenScene(Scene):
         )
         self.wait(0.2)
 
-        # ══════════════════════════════════════════════════════════════
-        # SCREEN 3 — Eigendecomposition interpretation + SVD connection
-        # ══════════════════════════════════════════════════════════════
+        # ==============================================================
+        # SCREEN 3 - Eigendecomposition interpretation + SVD connection
+        # ==============================================================
 
         step_eigen = styled_text("4. Eigendecomposition", font_size=24, color=BLUE)
         step_eigen.to_edge(UP, buff=0.5).to_edge(LEFT, buff=0.8)
@@ -207,7 +207,7 @@ class CovarianceEigenScene(Scene):
         interp1 = VGroup(
             MathTex(r"\mathbf{v}_i", font_size=30, color=BLUE),
             styled_text(
-                " → eigenface (eigenvector, reshaped to 64 × 64)",
+                " -> eigenface (eigenvector, reshaped to 64 × 64)",
                 font_size=22, color=TEXT_C,
             ),
         ).arrange(RIGHT, buff=0.15)
@@ -215,7 +215,7 @@ class CovarianceEigenScene(Scene):
         interp2 = VGroup(
             MathTex(r"\lambda_i", font_size=30, color=YELLOW),
             styled_text(
-                " → variance captured along direction  v_i",
+                " -> variance captured along direction  v_i",
                 font_size=22, color=TEXT_C,
             ),
         ).arrange(RIGHT, buff=0.15)
@@ -223,7 +223,7 @@ class CovarianceEigenScene(Scene):
         interp3 = VGroup(
             MathTex(r"\mathbf{v}_i^T \mathbf{v}_j = \delta_{ij}", font_size=28, color=LAVEN),
             styled_text(
-                "  — eigenvectors are orthonormal  →  clean projection & reconstruction",
+                "  - eigenvectors are orthonormal  ->  clean projection & reconstruction",
                 font_size=22, color=TEXT_C,
             ),
         ).arrange(RIGHT, buff=0.15)
@@ -234,9 +234,9 @@ class CovarianceEigenScene(Scene):
         self.play(FadeIn(interp, shift=UP * 0.2), run_time=1.0)
         self.wait(1.0)
 
-        # ── SVD connection (numerics) ──────────────────────────────────
+        # -- SVD connection (numerics) ----------------------------------
         svd_note = styled_text(
-            "In practice — use SVD of  X̃  (avoids forming 4096 × 4096 covariance matrix):",
+            "In practice - use SVD of  X̃  (avoids forming 4096 × 4096 covariance matrix):",
             font_size=19, color=DIM,
         )
         svd_note.to_edge(DOWN, buff=0.5)

@@ -1,5 +1,5 @@
 """
-Scene 5 — ReconstructionScene
+Scene 5 - ReconstructionScene
 
 """
 
@@ -21,7 +21,7 @@ class ReconstructionScene(Scene):
     def construct(self):
         self.camera.background_color = BG
 
-        # ── Compute PCA ────────────────────────────────────────────────
+        # -- Compute PCA ------------------------------------------------
         data = fetch_olivetti_faces(shuffle=False)
         X = data.data
         mean_face = X.mean(axis=0)
@@ -34,7 +34,7 @@ class ReconstructionScene(Scene):
         original = X[face_idx]
         x_centered = X_centered[face_idx]
 
-        # ── Reconstruction formula ─────────────────────────────────────
+        # -- Reconstruction formula -------------------------------------
         formula = MathTex(
             r"\hat{x}", r"\approx", r"\mu", r"+",
             r"\sum_{i=1}^{k}", r"a_i", r"\mathbf{v}_i",
@@ -47,19 +47,19 @@ class ReconstructionScene(Scene):
         self.play(Write(formula))
         self.wait(0.6)
 
-        # ── Original face (left) ──────────────────────────────────────
+        # -- Original face (left) --------------------------------------
         orig_thumb = create_face_thumbnail(original.reshape(64, 64), height=2.2)
         orig_thumb.move_to(LEFT * 4.5 + DOWN * 0.8)
         orig_label = styled_text("Original", font_size=20, color=GREEN)
         orig_label.next_to(orig_thumb, DOWN, buff=0.15)
         self.play(FadeIn(orig_thumb), FadeIn(orig_label))
 
-        # ── Arrow ─────────────────────────────────────────────────────
+        # -- Arrow -----------------------------------------------------
         arrow = Arrow(LEFT * 2.8 + DOWN * 0.8, LEFT * 1.2 + DOWN * 0.8,
                       color=PEACH, stroke_width=3)
         self.play(GrowArrow(arrow))
 
-        # ── Progressive reconstruction (right, replacing in place) ────
+        # -- Progressive reconstruction (right, replacing in place) ----
         ks = [1, 5, 10, 20, 50, 100, 200, 300]
         recon_pos = RIGHT * 1.5 + DOWN * 0.8
 
@@ -96,9 +96,9 @@ class ReconstructionScene(Scene):
             prev_label_mob = k_label
             prev_mse = mse_label
 
-        # ── Final comparison ──────────────────────────────────────────
+        # -- Final comparison ------------------------------------------
         compare = styled_text(
-            "More components → better reconstruction (lower MSE)",
+            "More components -> better reconstruction (lower MSE)",
             font_size=22, color=GREEN,
         )
         compare.to_edge(DOWN, buff=0.3)

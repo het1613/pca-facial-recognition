@@ -1,5 +1,5 @@
 """
-FaceToVectorScene  —  HIGH QUALITY
+FaceToVectorScene  -  HIGH QUALITY
 Run:  manim -pqh scene1_face_to_vector.py FaceToVectorScene
 """
 
@@ -79,9 +79,9 @@ class FaceToVectorScene(Scene):
         face  = faces[0]
         vals  = face.flatten()
 
-        # ══════════════════════════════════════════════════════════════════
+        # ==================================================================
         # PHASE 1
-        # ══════════════════════════════════════════════════════════════════
+        # ==================================================================
 
         title = Text(
             "From Image to Vector",
@@ -90,7 +90,7 @@ class FaceToVectorScene(Scene):
         title.to_edge(UP, buff=0.35)
         self.play(FadeIn(title, shift=DOWN*0.15))
 
-        # ── pixel grid — slightly smaller, left side ──────────────────────
+        # -- pixel grid - slightly smaller, left side ----------------------
         GCX, GCY = -3.8, 0.0
         # scale down by reducing cell size for this grid only
         SMALL_CELL = 0.075
@@ -110,7 +110,7 @@ class FaceToVectorScene(Scene):
         self.play(FadeIn(grid_lbl))
         self.wait(0.5)
 
-        # ── flatten arrow ─────────────────────────────────────────────────
+        # -- flatten arrow -------------------------------------------------
         ARR_X0 = GCX + gw/2 + 0.20
         ARR_X1 = ARR_X0 + 1.20
 
@@ -126,11 +126,11 @@ class FaceToVectorScene(Scene):
         self.play(GrowArrow(arr), FadeIn(arr_lbl))
         self.wait(0.3)
 
-        # ── column vector — centred in right half ─────────────────────────
+        # -- column vector - centred in right half -------------------------
         # Right half: from ARR_X1 to +7.1 (16:9 frame half-width ≈ 7.11)
         RIGHT_CX = (ARR_X1 + 6.9) / 2   # horizontal centre of right half
 
-        # Cell geometry — tall enough to fit value text
+        # Cell geometry - tall enough to fit value text
         VCH    = 0.55
         VCW    = 1.55
         ROW_SP = VCH * 1.25   # tight spacing so vector fits vertically
@@ -237,9 +237,9 @@ class FaceToVectorScene(Scene):
         )
         self.wait(1.3)
 
-        # ══════════════════════════════════════════════════════════════════
-        # PHASE 3 — 5 images + column vectors
-        # ══════════════════════════════════════════════════════════════════
+        # ==================================================================
+        # PHASE 3 - 5 images + column vectors
+        # ==================================================================
 
         self.play(
             FadeOut(Group(
@@ -369,9 +369,9 @@ class FaceToVectorScene(Scene):
         )
         self.wait(0.8)
 
-        # ══════════════════════════════════════════════════════════════════
-        # PHASE 4 — vectors only slide together; images stay fixed
-        # ══════════════════════════════════════════════════════════════════
+        # ==================================================================
+        # PHASE 4 - vectors only slide together; images stay fixed
+        # ==================================================================
 
         self.play(FadeOut(dn_arrows), FadeOut(img_lbls),
                   FadeOut(col_vec_lbls))
@@ -402,9 +402,9 @@ class FaceToVectorScene(Scene):
 
         self.play(FadeIn(mat_bL), FadeIn(mat_bR))
 
-        # ── X ∈ ℝ⁴⁰⁹⁶ˣᴺ  label — single line, directly below the matrix ──
+        # -- X ∈ ℝ⁴⁰⁹⁶ˣᴺ  label - single line, directly below the matrix --
         mat_lbl = Text(
-            "X  ∈  ℝ⁴⁰⁹⁶ˣᴺ     —     each column = one flattened face image",
+            "X  ∈  ℝ⁴⁰⁹⁶ˣᴺ     -     each column = one flattened face image",
             font="Calibri", color=OFFWHITE, font_size=26, weight=BOLD,
         )
         mat_lbl.next_to(mat_bR.get_bottom(), DOWN, buff=0.35)

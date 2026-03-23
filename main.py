@@ -9,7 +9,7 @@ All figures are saved to  output/figures/  and a summary of results is printed t
 
 import numpy as np
 
-# ── Project modules ────────────────────────────────────────────────────────
+# Project modules
 from src.config import (
     COMPONENT_COUNTS, N_EIGENFACES_DISPLAY, RANDOM_SEED, ensure_output_dirs,
 )
@@ -25,9 +25,7 @@ from src.recognition       import (
 from src import visualization as viz
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # Helper
-# ═══════════════════════════════════════════════════════════════════════════
 
 def _section(title):
     """Print a nicely formatted section header."""
@@ -38,42 +36,32 @@ def _section(title):
     print("=" * width)
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # Main pipeline
-# ═══════════════════════════════════════════════════════════════════════════
 
 def main():
     ensure_output_dirs()
 
-    # ------------------------------------------------------------------
     # 1. Load dataset
-    # ------------------------------------------------------------------
-    _section("1 · Loading Dataset")
+    _section("1. Loading Dataset")
     images, X, y = load_olivetti_faces()
     print(f"  Dataset shape : {X.shape}  ({len(np.unique(y))} subjects)")
 
-    # ------------------------------------------------------------------
     # 2. Train / test split
-    # ------------------------------------------------------------------
-    _section("2 · Splitting Data")
+    _section("2. Splitting Data")
     X_train, X_test, y_train, y_test = split_data(X, y)
     print(f"  Train : {X_train.shape[0]} samples")
     print(f"  Test  : {X_test.shape[0]} samples")
 
-    # ------------------------------------------------------------------
-    # 3. Preprocessing — mean face & centering
-    # ------------------------------------------------------------------
-    _section("3 · Preprocessing")
+    # 3. Preprocessing - mean face & centering
+    _section("3. Preprocessing")
     mean_face = compute_mean_face(X_train)
     X_train_c = center_data(X_train, mean_face)
     X_test_c  = center_data(X_test,  mean_face)
     print("  Computed mean face from training set.")
     print("  Centered train and test data.")
 
-    # ------------------------------------------------------------------
     # 4. PCA / Eigenfaces
-    # ------------------------------------------------------------------
-    _section("4 · Computing PCA (Eigenfaces)")
+    _section("4. Computing PCA (Eigenfaces)")
     pca = compute_pca(X_train_c)
     eigenfaces = get_eigenfaces(pca)
     print(f"  Retained components : {pca.n_components_}")
@@ -85,10 +73,8 @@ def main():
     print(f"  Components for 90% variance  : {idx_90}")
     print(f"  Components for 95% variance  : {idx_95}")
 
-    # ------------------------------------------------------------------
-    # 5. Visualisations — dataset, mean face, eigenfaces, variance
-    # ------------------------------------------------------------------
-    _section("5 · Generating Visualisations")
+    # 5. Visualisations - dataset, mean face, eigenfaces, variance
+    _section("5. Generating Visualisations")
     viz.plot_sample_faces(images, y)
     viz.plot_mean_face(mean_face)
     viz.plot_eigenfaces(eigenfaces, n=N_EIGENFACES_DISPLAY)
@@ -99,10 +85,8 @@ def main():
     viz.plot_projection_2d(X_train_proj_full, y_train)
     viz.plot_projection_3d(X_train_proj_full, y_train)
 
-    # ------------------------------------------------------------------
     # 6. Reconstruction
-    # ------------------------------------------------------------------
-    _section("6 · Face Reconstruction")
+    _section("6. Face Reconstruction")
     recon_ks = [1, 5, 10, 20, 50, 100, 200, 300]
     recon_ks = [k for k in recon_ks if k <= pca.n_components_]
 
@@ -123,10 +107,8 @@ def main():
     )
     viz.plot_reconstruction_error(ks_err, mses_err)
 
-    # ------------------------------------------------------------------
     # 7. Recognition / Classification
-    # ------------------------------------------------------------------
-    _section("7 · Face Recognition (1-NN)")
+    _section("7. Face Recognition (1-NN)")
     ks_acc, accs, best_k, best_acc = accuracy_vs_k(
         X_train_c, y_train,
         X_test_c, y_test,
@@ -136,14 +118,12 @@ def main():
         print(f"  k = {k:>4d}  |  Accuracy = {acc:.2%}")
 
     print()
-    print(f"  ★ Best k = {best_k}  →  Accuracy = {best_acc:.2%}")
+    print(f"  Best k = {best_k}  ->  Accuracy = {best_acc:.2%}")
 
     viz.plot_accuracy_vs_k(ks_acc, accs, best_k, best_acc)
 
-    # ------------------------------------------------------------------
-    # 8. Error analysis — correctly & incorrectly classified
-    # ------------------------------------------------------------------
-    _section("8 · Error Analysis")
+    # 8. Error analysis - correctly & incorrectly classified
+    _section("8. Error Analysis")
     # Classify at the best-k setting for error-analysis plots
     X_train_proj_best = project(X_train_c, pca, n_components=best_k)
     X_test_proj_best  = project(X_test_c,  pca, n_components=best_k)
@@ -157,12 +137,10 @@ def main():
     viz.plot_correctly_classified(X_test, y_test, y_pred)
     viz.plot_misclassified(X_test, y_test, y_pred)
 
-    # ------------------------------------------------------------------
     # Done
-    # ------------------------------------------------------------------
     _section("Pipeline Complete")
     print("  All figures saved to output/figures/")
-    print("  Done ✓")
+    print("  Done")
 
 
 if __name__ == "__main__":

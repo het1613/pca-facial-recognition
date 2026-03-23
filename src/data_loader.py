@@ -11,7 +11,7 @@ def load_olivetti_faces():
     """
     data = fetch_olivetti_faces(shuffle=False)
     images = data.images       # (400, 64, 64)
-    X      = data.data         # (400, 4096)  — already flattened
+    X      = data.data         # (400, 4096)  - already flattened
     y      = data.target       # (400,)
     return images, X, y
 

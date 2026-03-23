@@ -10,7 +10,7 @@ def reconstruct_faces(X_centered, pca, n_components, mean_face):
 
     # Project into PCA space and back:  x̂_centered = Vₖ (Vₖᵀ x̃)
     X_proj   = X_centered @ V_k.T          # (N, k)
-    X_recon  = X_proj @ V_k                # (N, d) — back to pixel space (centered)
+    X_recon  = X_proj @ V_k                # (N, d) - back to pixel space (centered)
 
     # Add the mean face back to get reconstructed face in original scale
     X_reconstructed = X_recon + mean_face

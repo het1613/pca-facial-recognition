@@ -1,10 +1,10 @@
 """
-Scene 6 — RecognitionScene
+Scene 6 - RecognitionScene
 
 Demonstrates nearest-neighbour face recognition in PCA space:
   1. Show a 2-D PCA scatter plot of training faces, colour-coded by identity.
   2. Animate a test face being projected into this space.
-  3. Draw a line to its nearest neighbour → classification.
+  3. Draw a line to its nearest neighbour -> classification.
 """
 
 import sys, os
@@ -26,7 +26,7 @@ class RecognitionScene(Scene):
     def construct(self):
         self.camera.background_color = BG
 
-        # ── Prepare data ──────────────────────────────────────────────
+        # -- Prepare data ----------------------------------------------
         data = fetch_olivetti_faces(shuffle=False)
         X, y = data.data, data.target
         # Use a subset of subjects for visual clarity
@@ -46,7 +46,7 @@ class RecognitionScene(Scene):
         X_train_2d = X_train_c @ pca.components_[:2].T
         X_test_2d  = X_test_c  @ pca.components_[:2].T
 
-        # ── Build axes ─────────────────────────────────────────────────
+        # -- Build axes -------------------------------------------------
         all_pts = np.vstack([X_train_2d, X_test_2d])
         pad = 1.5
         x_min, x_max = all_pts[:, 0].min() - pad, all_pts[:, 0].max() + pad
@@ -65,7 +65,7 @@ class RecognitionScene(Scene):
         )
         self.play(Create(axes), FadeIn(ax_labels), run_time=0.7)
 
-        # ── Plot training points (colour-coded) ───────────────────────
+        # -- Plot training points (colour-coded) -----------------------
         legend_items = VGroup()
         train_dots = VGroup()
         for subj in subjects:
@@ -92,7 +92,7 @@ class RecognitionScene(Scene):
         self.play(FadeIn(train_label))
         self.wait(0.5)
 
-        # ── Animate a test face entering the space ────────────────────
+        # -- Animate a test face entering the space --------------------
         self.play(FadeOut(train_label))
 
         test_idx = 0
@@ -117,7 +117,7 @@ class RecognitionScene(Scene):
         )
         self.wait(0.5)
 
-        # ── Find nearest neighbour ────────────────────────────────────
+        # -- Find nearest neighbour ------------------------------------
         dists = np.linalg.norm(X_train_2d - test_pt, axis=1)
         nn_idx = np.argmin(dists)
         nn_pt = X_train_2d[nn_idx]
@@ -135,10 +135,10 @@ class RecognitionScene(Scene):
         self.play(Create(nn_line), FadeIn(nn_text), run_time=1.0)
         self.wait(0.5)
 
-        # ── Classification result ─────────────────────────────────────
+        # -- Classification result -------------------------------------
         correct = test_label_true == nn_label
         result_color = GREEN if correct else PEACH
-        result_symbol = "✓" if correct else "✗"
+        result_symbol = "" if correct else "✗"
         result_text = styled_text(
             f"Predicted: Subject {nn_label}  {result_symbol}",
             font_size=24, color=result_color,
@@ -148,7 +148,7 @@ class RecognitionScene(Scene):
         self.play(FadeOut(test_text), FadeIn(result_text))
         self.wait(0.6)
 
-        # ── Formula ───────────────────────────────────────────────────
+        # -- Formula ---------------------------------------------------
         formula = MathTex(
             r"\hat{y} = y_{\arg\min_i \| w_{\text{test}} - w_i \|_2}",
             font_size=30, color=LAVEN,

@@ -1,5 +1,5 @@
 """
-Scene 7 — VarianceExplainedScene
+Scene 7 - VarianceExplainedScene
 
 Animates the cumulative explained variance bar/line chart as more principal components are added
 """
@@ -22,7 +22,7 @@ class VarianceExplainedScene(Scene):
     def construct(self):
         self.camera.background_color = BG
 
-        # ── Compute PCA ────────────────────────────────────────────────
+        # -- Compute PCA ------------------------------------------------
         data = fetch_olivetti_faces(shuffle=False)
         X = data.data
         X_centered = X - X.mean(axis=0)
@@ -30,7 +30,7 @@ class VarianceExplainedScene(Scene):
         pca.fit(X_centered)
         cum_var = np.cumsum(pca.explained_variance_ratio_)  # length 100
 
-        # ── Build axes ─────────────────────────────────────────────────
+        # -- Build axes -------------------------------------------------
         n_bars = 40           # show first 40 components for clarity
         axes = Axes(
             x_range=[0, n_bars + 1, 5],
@@ -49,7 +49,7 @@ class VarianceExplainedScene(Scene):
 
         self.play(Create(axes), FadeIn(x_label), FadeIn(y_label), run_time=0.8)
 
-        # ── Animate bars growing one by one ───────────────────────────
+        # -- Animate bars growing one by one ---------------------------
         bars = VGroup()
         bar_width = 0.18
 
@@ -79,7 +79,7 @@ class VarianceExplainedScene(Scene):
             idx = end
         self.wait(0.4)
 
-        # ── Threshold lines ───────────────────────────────────────────
+        # -- Threshold lines -------------------------------------------
         thresh_labels = []
         for thresh, color in [(0.90, PEACH), (0.95, GREEN)]:
             y_pos = axes.c2p(0, thresh)[1]
@@ -96,7 +96,7 @@ class VarianceExplainedScene(Scene):
                 rf"{int(thresh * 100)}\%",
                 font_size=22, color=color,
             )
-            arrow_tex = styled_text(" variance → k = ", font_size=20, color=color)
+            arrow_tex = styled_text(" variance -> k = ", font_size=20, color=color)
             k_tex = MathTex(str(k_thresh), font_size=22, color=color)
             badge = VGroup(pct_tex, arrow_tex, k_tex).arrange(RIGHT, buff=0.08)
             badge.next_to(line, UP, buff=0.1).align_to(axes, RIGHT).shift(LEFT * 0.3)
@@ -114,7 +114,7 @@ class VarianceExplainedScene(Scene):
 
         self.wait(0.6)
 
-        # ── Key takeaway ──────────────────────────────────────────────
+        # -- Key takeaway ----------------------------------------------
         explain = styled_text(
             "A small fraction of components captures most facial variance",
             font_size=20, color=YELLOW,
@@ -122,7 +122,7 @@ class VarianceExplainedScene(Scene):
         explain.to_edge(DOWN, buff=0.45)
 
         sub_note = styled_text(
-            "→ 4096 raw features compressed to ~50–100 for recognition",
+            "-> 4096 raw features compressed to ~50–100 for recognition",
             font_size=18, color=DIM,
         )
         sub_note.next_to(explain, DOWN, buff=0.15)

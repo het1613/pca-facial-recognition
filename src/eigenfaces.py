@@ -4,9 +4,7 @@ from sklearn.decomposition import PCA
 from src.config import IMAGE_SHAPE
 
 
-# ---------------------------------------------------------------------------
 # PCA computation
-# ---------------------------------------------------------------------------
 
 def compute_pca(X_centered, n_components=None):
     """
@@ -17,9 +15,7 @@ def compute_pca(X_centered, n_components=None):
     return pca
 
 
-# ---------------------------------------------------------------------------
 # Eigenface extraction
-# ---------------------------------------------------------------------------
 
 def get_eigenfaces(pca, image_shape=IMAGE_SHAPE):
     """
@@ -30,9 +26,7 @@ def get_eigenfaces(pca, image_shape=IMAGE_SHAPE):
     return eigenfaces
 
 
-# ---------------------------------------------------------------------------
 # Projection
-# ---------------------------------------------------------------------------
 
 def project(X_centered, pca, n_components=None):
     """
@@ -41,9 +35,9 @@ def project(X_centered, pca, n_components=None):
     if n_components is None:
         n_components = pca.n_components_
 
-    # Vₖ — the first k eigenvectors (rows of pca.components_)
+    # Vₖ - the first k eigenvectors (rows of pca.components_)
     V_k = pca.components_[:n_components]   # shape (k, d)
 
-    # w_i = Vₖ · x̃_i   for every sample → matrix multiply  X̃ Vₖᵀ
+    # w_i = Vₖ · x̃_i   for every sample -> matrix multiply  X̃ Vₖᵀ
     X_proj = X_centered @ V_k.T            # shape (N, k)
     return X_proj

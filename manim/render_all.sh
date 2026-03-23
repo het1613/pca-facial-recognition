@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# render_all.sh — Render every Manim scene at 1080p quality.
+# render_all.sh - Render every Manim scene at 1080p quality.
 #
 # Scenes are listed in logical presentation order:
 #   1. Data representation      scene1_face_to_vector.py
 #   2. Preprocessing             scene_mean_centering.py
 #   3. PCA intuition (2-D)       scene_pca_intuition.py
-#   4. LA — covariance & eigen   scene_covariance_eigen.py  (incl. Lagrangian derivation)
+#   4. LA - covariance & eigen   scene_covariance_eigen.py  (incl. Lagrangian derivation)
 #   5. Eigenfaces basis          scene_eigenfaces.py
 #   6. Variance explained        scene_variance_explained.py
 #   7. Reconstruction            scene_reconstruction.py
@@ -32,9 +32,9 @@ SCENES=(
     "scene_recognition.py        RecognitionScene"
 )
 
-echo "═══════════════════════════════════════════════════════"
+echo "======================================================="
 echo "  Rendering all Manim scenes ($QUALITY)"
-echo "═══════════════════════════════════════════════════════"
+echo "======================================================="
 
 for entry in "${SCENES[@]}"; do
     file=$(echo "$entry"  | awk '{print $1}')
@@ -45,6 +45,6 @@ for entry in "${SCENES[@]}"; do
 done
 
 echo ""
-echo "═══════════════════════════════════════════════════════"
-echo "  All scenes rendered ✓"
-echo "═══════════════════════════════════════════════════════"
+echo "======================================================="
+echo "  All scenes rendered "
+echo "======================================================="

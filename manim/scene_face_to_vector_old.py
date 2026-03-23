@@ -1,5 +1,5 @@
 """
-Scene 1 — FaceToVectorScene
+Scene 1 - FaceToVectorScene
 
 Demonstrates how a 2-D face image is flattened into a high-dimensional vector.
 """
@@ -23,12 +23,12 @@ class FaceToVectorScene(Scene):
     def construct(self):
         self.camera.background_color = BG
 
-        # ── Title ──────────────────────────────────────────────────────
-        title = section_title("Face Image → Vector Representation")
+        # -- Title ------------------------------------------------------
+        title = section_title("Face Image -> Vector Representation")
         self.play(Write(title))
         self.wait(0.5)
 
-        # ── Load a real face and build an 8×8 pixel grid ──────────────
+        # -- Load a real face and build an 8×8 pixel grid --------------
         faces = fetch_olivetti_faces(shuffle=False)
         face_img = faces.images[0]                       # (64, 64)
 
@@ -41,14 +41,14 @@ class FaceToVectorScene(Scene):
         self.play(FadeIn(grid, shift=UP * 0.3), FadeIn(face_label), run_time=1.2)
         self.wait(0.8)
 
-        # ── Arrow indicating transformation ───────────────────────────
+        # -- Arrow indicating transformation ---------------------------
         arrow = Arrow(LEFT * 1.2, RIGHT * 0.8, color=PEACH, stroke_width=4)
         arrow_label = styled_text("flatten", font_size=22, color=PEACH)
         arrow_label.next_to(arrow, UP, buff=0.15)
         self.play(GrowArrow(arrow), FadeIn(arrow_label))
         self.wait(0.3)
 
-        # ── Build column vector representation ─────────────────────────
+        # -- Build column vector representation -------------------------
         # Show a stylised column vector with a few entries + dots
         from PIL import Image as PILImage
         pil = PILImage.fromarray((face_img * 255).astype(np.uint8), mode="L")
@@ -87,7 +87,7 @@ class FaceToVectorScene(Scene):
         self.play(FadeIn(vec_group, shift=RIGHT * 0.3), FadeIn(vec_label), run_time=1.2)
         self.wait(0.8)
 
-        # ── Explanatory text ───────────────────────────────────────────
+        # -- Explanatory text -------------------------------------------
         explain = styled_text(
             "Each 64×64 face becomes a vector in ℝ⁴⁰⁹⁶",
             font_size=26, color=YELLOW,
@@ -96,14 +96,14 @@ class FaceToVectorScene(Scene):
         self.play(FadeIn(explain, shift=UP * 0.2))
         self.wait(1.5)
 
-        # ── Animate rows peeling off grid into vector ──────────────────
+        # -- Animate rows peeling off grid into vector ------------------
         # Highlight first row of grid
         first_row = VGroup(*[grid[i] for i in range(8)])
         highlight = SurroundingRectangle(first_row, color=PEACH, buff=0.04)
         self.play(Create(highlight), run_time=0.5)
         self.wait(0.3)
 
-        row_label = styled_text("Row 1 → first 8 entries", font_size=20, color=PEACH)
+        row_label = styled_text("Row 1 -> first 8 entries", font_size=20, color=PEACH)
         row_label.next_to(highlight, LEFT, buff=0.2).shift(DOWN * 0.3)
         self.play(FadeIn(row_label))
         self.wait(1.0)
@@ -111,7 +111,7 @@ class FaceToVectorScene(Scene):
         self.play(FadeOut(highlight), FadeOut(row_label))
         self.wait(0.5)
 
-        # ── Final emphasis ─────────────────────────────────────────────
+        # -- Final emphasis ---------------------------------------------
         box = SurroundingRectangle(
             VGroup(grid, arrow, vec_group), color=GREEN, buff=0.3, corner_radius=0.1,
         )

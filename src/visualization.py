@@ -12,9 +12,7 @@ from src.config import (
     PROJECTION_PALETTE,
 )
 
-# ---------------------------------------------------------------------------
 # Global plot style
-# ---------------------------------------------------------------------------
 plt.rcParams.update({
     "font.size":        FONT_SIZE_TICK,
     "axes.titlesize":   FONT_SIZE_TITLE,
@@ -33,12 +31,10 @@ def _save(fig, filename):
     path = os.path.join(FIGURES_DIR, filename)
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
-    print(f"  ✓ Saved {path}")
+    print(f"  Saved {path}")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 1. Sample faces overview
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_sample_faces(images, labels, n_samples=20, shape=IMAGE_SHAPE):
     """
@@ -58,9 +54,7 @@ def plot_sample_faces(images, labels, n_samples=20, shape=IMAGE_SHAPE):
     _save(fig, "01_sample_faces.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 2. Mean face
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_mean_face(mean_face, shape=IMAGE_SHAPE):
     """
@@ -73,9 +67,7 @@ def plot_mean_face(mean_face, shape=IMAGE_SHAPE):
     _save(fig, "02_mean_face.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 3. Top eigenfaces
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_eigenfaces(eigenfaces, n=16):
     """
@@ -96,9 +88,7 @@ def plot_eigenfaces(eigenfaces, n=16):
     _save(fig, "03_top_eigenfaces.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 4. Explained variance
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_explained_variance(pca, max_components=100):
     """
@@ -143,9 +133,7 @@ def plot_explained_variance(pca, max_components=100):
     _save(fig, "04_explained_variance.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 5. 2-D projection scatter
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_projection_2d(X_proj, y):
     """
@@ -166,9 +154,7 @@ def plot_projection_2d(X_proj, y):
     _save(fig, "05_projection_2d.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 6. 3-D projection scatter
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_projection_3d(X_proj, y):
     """
@@ -191,9 +177,7 @@ def plot_projection_3d(X_proj, y):
     _save(fig, "06_projection_3d.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 7. Reconstruction grid
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_reconstruction_grid(X_original, reconstructed_dict, indices,
                              shape=IMAGE_SHAPE):
@@ -204,7 +188,7 @@ def plot_reconstruction_grid(X_original, reconstructed_dict, indices,
     ----------
     X_original : ndarray, shape (n_samples, n_features)
     reconstructed_dict : dict {k: ndarray}
-        Mapping from component count k → reconstructed face vectors.
+        Mapping from component count k -> reconstructed face vectors.
     indices : list of int
         Indices of faces to display.
     """
@@ -235,9 +219,7 @@ def plot_reconstruction_grid(X_original, reconstructed_dict, indices,
     _save(fig, "07_reconstruction_grid.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 8. Reconstruction error vs k
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_reconstruction_error(ks, mses):
     """
@@ -254,9 +236,7 @@ def plot_reconstruction_error(ks, mses):
     _save(fig, "08_reconstruction_error.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 9. Accuracy vs k
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_accuracy_vs_k(ks, accuracies, best_k=None, best_acc=None):
     """
@@ -280,9 +260,7 @@ def plot_accuracy_vs_k(ks, accuracies, best_k=None, best_acc=None):
     _save(fig, "09_accuracy_vs_k.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 10. Correctly classified examples
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_correctly_classified(X_test, y_test, y_pred, n=10, shape=IMAGE_SHAPE):
     """
@@ -291,7 +269,7 @@ def plot_correctly_classified(X_test, y_test, y_pred, n=10, shape=IMAGE_SHAPE):
     correct = np.where(y_test == y_pred)[0]
     n = min(n, len(correct))
     if n == 0:
-        print("  ⚠ No correctly classified samples to display.")
+        print("  No correctly classified samples to display.")
         return
     indices = correct[:n]
 
@@ -308,9 +286,7 @@ def plot_correctly_classified(X_test, y_test, y_pred, n=10, shape=IMAGE_SHAPE):
     _save(fig, "10_correctly_classified.png")
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # 11. Misclassified examples
-# ═══════════════════════════════════════════════════════════════════════════
 
 def plot_misclassified(X_test, y_test, y_pred, n=10, shape=IMAGE_SHAPE):
     """
@@ -319,7 +295,7 @@ def plot_misclassified(X_test, y_test, y_pred, n=10, shape=IMAGE_SHAPE):
     wrong = np.where(y_test != y_pred)[0]
     n = min(n, len(wrong))
     if n == 0:
-        print("  ⚠ No misclassified samples to display.")
+        print("  No misclassified samples to display.")
         return
     indices = wrong[:n]
 

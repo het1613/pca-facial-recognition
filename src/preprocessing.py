@@ -7,7 +7,7 @@ def compute_mean_face(X_train):
     """
     Compute the mean face from the training set.
     """
-    # μ = (1/N) Σ x_i — a single vector in ℝ^d
+    # μ = (1/N) Σ x_i - a single vector in ℝ^d
     mean_face = np.mean(X_train, axis=0)
     return mean_face
 

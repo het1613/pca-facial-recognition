@@ -1,5 +1,5 @@
 """
-Scene 2 — MeanCenteringScene
+Scene 2 - MeanCenteringScene
 
 Shows how the mean face is computed and subtracted from each training image, producing centered (zero-mean) face vectors.
 """
@@ -21,14 +21,14 @@ class MeanCenteringScene(Scene):
     def construct(self):
         self.camera.background_color = BG
 
-        # ── Load faces ─────────────────────────────────────────────────
+        # -- Load faces -------------------------------------------------
         data = fetch_olivetti_faces(shuffle=False)
         images = data.images                 # (400, 64, 64)
         n_show = 5
         face_indices = [0, 10, 20, 30, 40]  # one per subject
         face_imgs = [images[i] for i in face_indices]
 
-        # ── Step 1: show training faces ────────────────────────────────
+        # -- Step 1: show training faces --------------------------------
         step1 = styled_text("Step 1: Training faces", font_size=24, color=BLUE)
         step1.to_edge(UP, buff=0.5).to_edge(LEFT, buff=0.5)
         self.play(FadeIn(step1))
@@ -54,7 +54,7 @@ class MeanCenteringScene(Scene):
         )
         self.wait(0.8)
 
-        # ── Step 2: compute mean ───────────────────────────────────────
+        # -- Step 2: compute mean ---------------------------------------
         step2 = styled_text("Step 2: Compute mean face", font_size=24, color=BLUE)
         step2.next_to(labels, DOWN, buff=0.35).to_edge(LEFT, buff=0.5)
 
@@ -66,7 +66,7 @@ class MeanCenteringScene(Scene):
 
         self.play(FadeIn(step2), Write(mean_formula), run_time=1.0)
 
-        # Animate: all thumbs converge to center → mean face appears
+        # Animate: all thumbs converge to center -> mean face appears
         mean_img = np.mean(np.array(face_imgs), axis=0)
         mean_thumb = create_face_thumbnail(mean_img, height=1.6)
         mean_thumb.next_to(step2, DOWN, buff=0.3)
@@ -83,7 +83,7 @@ class MeanCenteringScene(Scene):
         self.play(FadeOut(copies), FadeIn(mean_thumb), FadeIn(mean_label), run_time=0.8)
         self.wait(0.6)
 
-        # ── Step 3: subtract mean ──────────────────────────────────────
+        # -- Step 3: subtract mean --------------------------------------
         # Fade out top items, shift everything up
         to_clear = Group(step1, thumbs, labels, step2, mean_formula)
         self.play(FadeOut(to_clear), run_time=0.6)
@@ -134,7 +134,7 @@ class MeanCenteringScene(Scene):
         )
 
         explain = styled_text(
-            "Centering removes shared structure → reveals individual variation",
+            "Centering removes shared structure -> reveals individual variation",
             font_size=20, color=GREEN,
         )
         explain.to_edge(DOWN, buff=0.3)
